@@ -10,6 +10,7 @@ Auto-generated every Saturday at 9am ET.
 
 | Edition | View Online |
 | --- | --- |
+| [March 25, 2026](editions/March-25-2026.html) | [View](https://phanikumar-rudra.github.io/ai-news/editions/March-25-2026.html) |
 | [March 29, 2026](editions/March-29-2026.html) | [View](https://phanikumar-rudra.github.io/ai-news/editions/March-29-2026.html) |
 
 ---
