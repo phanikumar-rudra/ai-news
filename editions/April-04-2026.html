@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DevAssist Weekly Archive</title>
+  <title>DevAssist Weekly -- April 4, 2026</title>
   <style>
-
     :root {
       --bg: #0d1117;
       --surface: #161b22;
@@ -39,17 +38,16 @@
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
       color: #ff7b72;
     }
-    /* SITE HEADER */
-    .site-header {
+    header {
       background: linear-gradient(160deg, #161b22 0%, #0d1117 70%);
       border-bottom: 1px solid var(--border);
       padding: 40px 24px 32px;
       text-align: center;
-      margin: 0 -16px 0;
+      margin: 0 -16px 48px;
       position: relative;
       overflow: hidden;
     }
-    .site-header::before {
+    header::before {
       content: "";
       position: absolute;
       top: -60px; left: 50%; transform: translateX(-50%);
@@ -57,94 +55,38 @@
       background: radial-gradient(ellipse, rgba(88,166,255,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
-    .site-header h1 { font-size: 2rem; font-weight: 800; color: #e6edf3; letter-spacing: -0.5px; }
-    .site-header h1 .accent { color: var(--accent); }
-    .site-header .subtitle { color: var(--text-dim); margin-top: 8px; font-size: 0.93rem; }
-    .site-header .meta-row {
-      margin-top: 14px;
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 4px 14px;
+      border-radius: 20px;
+      transition: all 0.2s;
     }
-    .site-header .meta-pill {
+    .back-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    header h1 { font-size: 2rem; font-weight: 800; color: #e6edf3; letter-spacing: -0.5px; }
+    header h1 .accent { color: var(--accent); }
+    header .subtitle { color: var(--text-dim); margin-top: 8px; font-size: 0.93rem; }
+    header .edition-badge {
+      display: inline-block;
+      margin-top: 14px;
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 4px 14px;
+      padding: 4px 16px;
       font-size: 0.8rem;
-      color: var(--text-dim);
-    }
-    .site-header .meta-pill.green { color: var(--accent2); border-color: rgba(63,185,80,0.3); }
-    /* CONTAINER */
-    .container { max-width: 1100px; margin: 0 auto; }
-    /* EDITION WRAPPER */
-    .edition-wrapper {
-      margin: 40px 0 0;
-    }
-    /* EDITION HEADER (collapsible toggle bar) */
-    .edition-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 22px;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      user-select: none;
-    }
-    .edition-toggle:hover { border-color: var(--accent); background: #1c222b; }
-    .edition-toggle.open { border-radius: var(--radius) var(--radius) 0 0; border-bottom-color: transparent; background: #1c222b; border-color: var(--accent); }
-    .edition-toggle .left { display: flex; align-items: center; gap: 12px; }
-    .edition-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--text-dim);
-    }
-    .edition-title { font-size: 1rem; font-weight: 700; color: #e6edf3; }
-    .edition-date { font-size: 0.82rem; color: var(--text-dim); }
-    .edition-toggle .chevron {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      transition: transform 0.25s;
-    }
-    .edition-toggle.open .chevron { transform: rotate(180deg); }
-    .edition-badge-pill {
-      display: inline-block;
-      background: rgba(88,166,255,0.12);
-      border: 1px solid rgba(88,166,255,0.25);
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-size: 0.72rem;
-      color: var(--accent);
+      color: var(--accent2);
       font-weight: 600;
     }
-    .edition-badge-pill.latest {
-      background: rgba(63,185,80,0.12);
-      border-color: rgba(63,185,80,0.3);
-      color: var(--accent2);
-    }
-    /* EDITION BODY (collapsible) */
-    .edition-body {
-      display: none;
-      border: 1px solid var(--accent);
-      border-top: none;
-      border-radius: 0 0 var(--radius) var(--radius);
-      padding: 32px 24px 36px;
-      background: var(--bg);
-    }
-    .edition-body.open { display: block; }
-    /* TOP STORY */
+    .container { max-width: 1100px; margin: 0 auto; }
     .top-story {
       background: linear-gradient(135deg, #1c2a3f 0%, #161b22 100%);
       border: 1px solid #1f6feb;
       border-radius: var(--radius);
       padding: 28px 32px;
-      margin-bottom: 36px;
+      margin-bottom: 40px;
       position: relative;
       overflow: hidden;
     }
@@ -177,8 +119,7 @@
       transition: all 0.2s;
     }
     .top-story .meta a:hover { background: rgba(31,111,235,0.15); border-color: var(--accent); text-decoration: none; }
-    /* SECTION */
-    section { margin-bottom: 40px; }
+    section { margin-bottom: 44px; }
     .section-header {
       display: flex; align-items: center; gap: 12px;
       margin-bottom: 18px; padding-bottom: 10px;
@@ -191,16 +132,13 @@
       border-radius: 20px; padding: 2px 10px;
       font-size: 0.74rem; color: var(--text-dim);
     }
-    /* CARD GRID */
     .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     @media (max-width: 768px) {
       .card-grid { grid-template-columns: 1fr; }
-      .site-header h1 { font-size: 1.5rem; }
+      header h1 { font-size: 1.5rem; }
       .top-story { padding: 20px 18px; }
       .top-story h2 { font-size: 1.1rem; }
-      .edition-body { padding: 20px 14px 24px; }
     }
-    /* CARD */
     .card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 18px 18px 14px;
@@ -239,7 +177,6 @@
     .tag-red    { background: rgba(248,81,73,0.15);  border-color: rgba(248,81,73,0.3);   color: #f85149; }
     .source-link { font-size: 0.73rem; color: var(--text-dim); transition: color 0.2s; }
     .source-link:hover { color: var(--accent); }
-    /* READ MORE */
     .read-more-btn {
       background: none; border: 1px solid var(--border); color: var(--text-dim);
       font-size: 0.76rem; padding: 4px 11px; border-radius: 6px; cursor: pointer;
@@ -259,7 +196,6 @@
       border-left: 3px solid var(--accent2); padding: 7px 11px;
       border-radius: 0 4px 4px 0; font-size: 0.8rem; color: var(--text);
     }
-    /* PHANI PICK */
     .phani-pick {
       background: linear-gradient(135deg, #1c2a3f 0%, #161b22 100%);
       border: 1px solid #1f6feb; border-radius: var(--radius);
@@ -272,51 +208,27 @@
     .phani-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--accent3); margin-bottom: 8px; }
     .phani-pick h3 { font-size: 1.05rem; font-weight: 700; color: #e6edf3; margin-bottom: 7px; }
     .phani-pick p { color: var(--text-dim); font-size: 0.88rem; max-width: 760px; line-height: 1.7; }
-    /* EDITION DIVIDER */
-    .edition-divider {
-      text-align: center;
-      margin: 12px 0 0;
-      font-size: 0.74rem;
-      color: var(--text-dim);
-    }
-    /* SITE FOOTER */
-    .site-footer {
-      margin-top: 48px; padding-top: 20px;
+    .footer-meta {
+      margin-top: 40px; padding-top: 20px;
       border-top: 1px solid var(--border);
       text-align: center; font-size: 0.76rem; color: var(--text-dim);
     }
-    .site-footer a { color: var(--text-dim); }
-    .site-footer a:hover { color: var(--accent); }
-
+    .footer-meta a { color: var(--text-dim); }
+    .footer-meta a:hover { color: var(--accent); }
+    .footer-meta p + p { margin-top: 6px; }
   </style>
 </head>
 <body>
 
-<div class="site-header">
+<header>
+  <a class="back-link" href="../index.html">&larr; Back to Archive</a>
   <h1><span class="accent">DevAssist</span> Weekly</h1>
-  <p class="subtitle">GitHub Copilot &nbsp;&middot;&nbsp; VS Code &nbsp;&middot;&nbsp; Microsoft AI &nbsp;&middot;&nbsp; Community</p>
-  <div class="meta-row">
-    <span class="meta-pill green">2 editions published</span>
-    <span class="meta-pill">Latest: April 4, 2026</span>
-    <span class="meta-pill">Updated every Saturday at 9am ET</span>
-  </div>
-</div>
+  <p class="subtitle">GitHub Copilot &middot; VS Code &middot; Microsoft AI &middot; Community</p>
+  <p class="subtitle" style="margin-top:6px;">April 4, 2026</p>
+  <div class="edition-badge">Week of March 28 &ndash; April 4, 2026</div>
+</header>
 
 <div class="container">
-
-  <div class="edition-wrapper">
-    <div class="edition-toggle open" onclick="toggleEdition(this)">
-      <div class="left">
-        <span class="edition-badge-pill latest">Latest</span>
-        <div>
-          <div class="edition-title">Copilot SDK Goes Public Preview in Java, Python, Go, .NET and Node.js</div>
-          <div class="edition-date">April 4, 2026</div>
-        </div>
-      </div>
-      <span class="chevron">&#9660;</span>
-    </div>
-    <div class="edition-body open">
-
 
   <!-- TOP STORY -->
   <div class="top-story">
@@ -645,389 +557,18 @@
     <p>Auto-generated &middot; April 4, 2026 &middot; <a href="https://phanikumar-rudra.github.io/ai-news/" target="_blank">phanikumar-rudra.github.io/ai-news</a></p>
   </div>
 
-      <div class="edition-divider">&#8212; End of April 4, 2026 edition &#8212;</div>
-    </div>
-  </div>
-
-  <div class="edition-wrapper">
-    <div class="edition-toggle" onclick="toggleEdition(this)">
-      <div class="left">
-        <span class="edition-badge-pill">Archive</span>
-        <div>
-          <div class="edition-title">VS Code 1.113 Ships — Nested Subagents, MCP in CLI, and Configurable Thinking Effort</div>
-          <div class="edition-date">March 28, 2026</div>
-        </div>
-      </div>
-      <span class="chevron">&#9660;</span>
-    </div>
-    <div class="edition-body">
-
-
-  <!-- TOP STORY -->
-  <div class="top-story">
-    <div class="story-label">Top Story This Week</div>
-    <h2>VS Code 1.113 Ships — Nested Subagents, MCP in CLI, and Configurable Thinking Effort</h2>
-    <p>Released March 25, VS Code 1.113 is the most agent-focused release yet: subagents can now invoke other subagents for multi-step workflows, MCP servers you configure in VS Code are bridged directly into Copilot CLI and Claude agents, and reasoning effort (low/medium/high) is now controllable from the model picker UI. This release, combined with the Copilot CLI having six point releases this week alone, signals the terminal and editor are converging into a single agentic platform.</p>
-    <div class="meta">
-      <a href="https://code.visualstudio.com/updates/v1_113" target="_blank">Read: VS Code 1.113 Release Notes</a>
-      <a href="https://github.com/github/copilot-cli/releases" target="_blank">Read: Copilot CLI Releases</a>
-    </div>
-  </div>
-
-  <!-- SECTION 1: VS Code -->
-  <section>
-    <div class="section-header">
-      <h2>VS Code + GitHub Copilot</h2>
-      <span class="count-badge">6 updates</span>
-    </div>
-    <div class="card-grid">
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#1</div>
-          <h3><a href="https://code.visualstudio.com/updates/v1_113" target="_blank">Nested Subagents — Agents Can Now Invoke Other Agents</a></h3>
-        </div>
-        <p class="description">VS Code 1.113 introduces <code>chat.subagents.allowInvocationsFromSubagents</code>, enabling subagents to call other subagents. Previously blocked to prevent infinite recursion, this unlocks genuinely complex multi-step agentic workflows where a coordinator agent delegates specialized tasks to role-specific subagents — all within a single chat session.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> Build an orchestration layer where a "Project Manager" agent delegates code tasks to a "Java API Agent" and UI tasks to an "Angular Agent" — no manual switching required.</div>
-        <button class="read-more-btn" onclick="toggleRM(this)">+ Step-by-Step Guide</button>
-        <div class="read-more-content">
-          <ol>
-            <li>Update VS Code to 1.113 (March 25, 2026 release).</li>
-            <li>Enable the setting: <code>"chat.subagents.allowInvocationsFromSubagents": true</code>.</li>
-            <li>Create a coordinator agent file that references your role-specific subagents.</li>
-            <li>Start a chat session with the coordinator — it will delegate subtasks to specialized agents automatically.</li>
-          </ol>
-          <div class="example">Real Example: A "Full-Stack Feature Agent" receives a feature description, invokes the "Java API Agent" to create the backend endpoint, then invokes the "Angular UI Agent" to scaffold the component — one prompt, two specialized agents, full feature delivered.</div>
-        </div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-blue">New Feature</span>
-            <span class="tag tag-green">VS Code 1.113</span>
-          </div>
-          <a class="source-link" href="https://code.visualstudio.com/updates/v1_113" target="_blank">VS Code Release Notes</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#2</div>
-          <h3><a href="https://code.visualstudio.com/updates/v1_113" target="_blank">MCP Servers Now Work Inside Copilot CLI and Claude Agents</a></h3>
-        </div>
-        <p class="description">MCP servers you configure in VS Code are now bridged into Copilot CLI and Claude agent sessions. Both user-defined servers and workspace <code>mcp.json</code> servers are included. Previously MCP was only available to local agents running inside the editor — now your terminal agent sessions have the same rich tool access as your chat panel sessions.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> If you have an internal code-analysis MCP server set up in VS Code, your Copilot CLI sessions can now call it directly — no separate CLI configuration needed.</div>
-        <button class="read-more-btn" onclick="toggleRM(this)">+ How to Verify</button>
-        <div class="read-more-content">
-          <ol>
-            <li>Ensure VS Code 1.113 and the latest Copilot CLI (1.0.13) are installed.</li>
-            <li>Configure an MCP server in VS Code via your <code>mcp.json</code> or user settings.</li>
-            <li>Open a Copilot CLI session in the terminal.</li>
-            <li>Run <code>/mcp show</code> in the CLI — you should see your VS Code-configured servers listed.</li>
-          </ol>
-          <div class="example">Real Example: You have an internal Java dependency-checker MCP server registered in VS Code. Open a Copilot CLI session and ask it to "audit my project's Spring Boot dependencies for vulnerabilities" — it now calls your MCP server to pull the data.</div>
-        </div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-blue">New Feature</span>
-            <span class="tag tag-green">VS Code 1.113</span>
-          </div>
-          <a class="source-link" href="https://code.visualstudio.com/updates/v1_113" target="_blank">VS Code Release Notes</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#3</div>
-          <h3><a href="https://code.visualstudio.com/updates/v1_113" target="_blank">Configurable Thinking Effort in the Model Picker</a></h3>
-        </div>
-        <p class="description">Reasoning models like Claude Sonnet 4.6 and GPT-5.4 now show a Thinking Effort submenu in the model picker — choose Low, Medium, or High without going into settings. The picker label shows the active level (e.g. "GPT-5.4 &middot; Medium"). Note: the old <code>github.copilot.chat.anthropic.thinking.effort</code> setting is now deprecated in favor of this UI control.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> Use Low effort for quick completions and boilerplate, High effort for complex architecture decisions — switch per-task without leaving the chat panel.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-blue">New Feature</span>
-            <span class="tag tag-orange">Deprecated Setting</span>
-          </div>
-          <a class="source-link" href="https://code.visualstudio.com/updates/v1_113" target="_blank">VS Code Release Notes</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#4</div>
-          <h3><a href="https://code.visualstudio.com/updates/v1_113" target="_blank">Chat Customizations Editor — Centralized UI for All Agent Config</a></h3>
-        </div>
-        <p class="description">VS Code 1.113 introduces the Chat Customizations editor (Preview) — a single UI for managing all chat customizations: custom instructions, prompt files, custom agents, and agent skills. Includes a built-in code editor with syntax highlighting, AI-generated initial content, and direct browsing of MCP server and plugin marketplaces. Open via the gear icon in the Chat view or <code>Chat: Open Chat Customizations</code> in the Command Palette.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> No more hunting across separate settings files for instructions, agents, and plugins — everything is in one tabbed editor with validation built in.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-yellow">Preview</span>
-            <span class="tag tag-green">VS Code 1.113</span>
-          </div>
-          <a class="source-link" href="https://code.visualstudio.com/updates/v1_113" target="_blank">VS Code Release Notes</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#5</div>
-          <h3><a href="https://code.visualstudio.com/updates/v1_113" target="_blank">Session Forking Now Available in Copilot CLI and Claude Agents</a></h3>
-        </div>
-        <p class="description">You can now fork a Copilot CLI or Claude agent session at any point in conversation history — creating a copy to explore a different approach without losing the original. Enable via <code>github.copilot.chat.cli.forkSessions.enabled</code>. Previously only available for local editor agent sessions, now extended to the full terminal workflow.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> Stuck at a design decision mid-session? Fork and explore both paths simultaneously instead of losing your work or starting over.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-yellow">Experimental</span>
-          </div>
-          <a class="source-link" href="https://code.visualstudio.com/updates/v1_113" target="_blank">VS Code Release Notes</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#6</div>
-          <h3><a href="https://code.visualstudio.com/updates/v1_113" target="_blank">Full Image Viewer for Chat Attachments</a></h3>
-        </div>
-        <p class="description">Images in chat — whether you attached screenshots or the agent generated them via tool calls — now open in a full image viewer with navigation, zoom, pan, and conversation-turn grouping. The viewer is also available from the Explorer right-click menu for image files. Both <code>imageCarousel.chat.enabled</code> and <code>imageCarousel.explorerContextMenu.enabled</code> are on by default in 1.113.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> Review agent-generated UI screenshots at full resolution directly in VS Code — no more downloading and opening files externally.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-green">Enabled by Default</span>
-          </div>
-          <a class="source-link" href="https://code.visualstudio.com/updates/v1_113" target="_blank">VS Code Release Notes</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 2: GitHub.com -->
-  <section>
-    <div class="section-header">
-      <h2>GitHub.com Copilot</h2>
-      <span class="count-badge">4 updates</span>
-    </div>
-    <div class="card-grid">
-
-      <div class="card alert-card">
-        <div class="card-top">
-          <div class="rank-badge">#1</div>
-          <h3><a href="https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/" target="_blank">Copilot Data Policy Change — Opt Out Before April 24</a></h3>
-        </div>
-        <p class="description">GitHub announced on March 25 that from April 24 onward, interaction data from Copilot Free, Pro, and Pro+ users will be used to train AI models unless users opt out. Data includes accepted outputs, code snippets shown to the model, cursor context, comments, file names, and chat interactions. Copilot Business and Enterprise users are not affected.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> If you are on Copilot Pro or Pro+ and do not want your interaction data used for training, go to your GitHub settings under Privacy and opt out before April 24. Previous opt-outs are honored automatically.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-red">Action Required</span>
-            <span class="tag tag-orange">Deadline: April 24</span>
-          </div>
-          <a class="source-link" href="https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/" target="_blank">GitHub Blog</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#2</div>
-          <h3><a href="https://github.com/github/copilot-cli/releases" target="_blank">Copilot CLI 1.0.13 — /rewind Timeline Picker and Faster Startup</a></h3>
-        </div>
-        <p class="description">The March 27 CLI release adds a timeline picker to <code>/rewind</code> and double-Esc — you can now roll back to any point in conversation history, not just the previous snapshot. CLI startup is also faster due to V8 compile cache reducing parse and compile time on repeated invocations. MCP registry lookups are more reliable with automatic retries and request timeouts.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> Accidentally went too far down a refactoring path? Use <code>/rewind</code> and select exactly the conversation checkpoint you want to return to — surgical rollback, not just one step back.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-green">Release</span>
-          </div>
-          <a class="source-link" href="https://github.com/github/copilot-cli/releases" target="_blank">Copilot CLI Releases</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#3</div>
-          <h3><a href="https://github.com/github/copilot-cli/releases" target="_blank">Copilot CLI 1.0.12 — Full-Screen Model Picker with Inline Reasoning Control</a></h3>
-        </div>
-        <p class="description">Released March 26, this update opens the model picker in full-screen view with inline reasoning effort adjustment using arrow keys. The model display header shows the active reasoning effort level (e.g. "high") next to the model name. <code>/allow-all</code> (<code>/yolo</code>) now supports <code>on</code>, <code>off</code>, and <code>show</code> subcommands. MCP servers defined in <code>.mcp.json</code> at the git root now start correctly.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> Adjust model and reasoning effort from inside the CLI picker with arrow keys — no more interrupting your flow to change settings in VS Code or a config file.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-green">Release</span>
-          </div>
-          <a class="source-link" href="https://github.com/github/copilot-cli/releases" target="_blank">Copilot CLI Releases</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#4</div>
-          <h3><a href="https://github.com/github/copilot-cli/releases" target="_blank">Copilot CLI — MCP Servers Can Now Request LLM Inference</a></h3>
-        </div>
-        <p class="description">Also in the March 27 release: MCP servers can now request LLM inference (model sampling) with user approval via a new review prompt. This allows MCP tools to use Copilot's AI capabilities directly inside their own workflows, unlocking a new class of tool-driven AI interactions where external tools can ask the model questions as part of their operation.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> An MCP tool that runs your test suite can now ask Copilot to summarize the failure patterns and suggest fixes — AI-in-the-loop tooling, not just AI-adjacent.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-blue">New Capability</span>
-          </div>
-          <a class="source-link" href="https://github.com/github/copilot-cli/releases" target="_blank">Copilot CLI Releases</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 3: Enterprise -->
-  <section>
-    <div class="section-header">
-      <h2>Microsoft Copilot for Enterprise</h2>
-      <span class="count-badge">3 updates</span>
-    </div>
-    <div class="card-grid">
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#1</div>
-          <h3><a href="https://www.microsoft.com/en-us/power-platform/blog/power-apps/whats-new-in-power-platform-march-2026-feature-update/" target="_blank">Microsoft 365 Copilot Now Integrated in Model-Driven Power Apps</a></h3>
-        </div>
-        <p class="description">The March 2026 Power Platform update brings Microsoft 365 Copilot directly into model-driven Power Apps via a side pane. Developers and users can ask Copilot to summarize table data, visualize what is active, recap record history, and reference related content — all from within the app. Copilot can also invoke specialized agents (including custom org agents) from the same pane and take actions like drafting documents or scheduling meetings.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> If your team uses Power Apps for project tracking or data management, Copilot can now answer "what is happening with this record" questions and hand off to custom agents without leaving the app.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-blue">New Feature</span>
-          </div>
-          <a class="source-link" href="https://www.microsoft.com/en-us/power-platform/blog/power-apps/whats-new-in-power-platform-march-2026-feature-update/" target="_blank">Microsoft Power Platform Blog</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#2</div>
-          <h3><a href="https://learn.microsoft.com/en-us/power-platform/release-plan/2026wave1/microsoft-copilot-studio/planned-features" target="_blank">Copilot Studio: Custom MCP Servers Going GA in April</a></h3>
-        </div>
-        <p class="description">Copilot Studio's ability to connect agents to external data via custom MCP servers — currently in public preview — reaches general availability in April 2026. Organizations can connect any Copilot Studio agent to external databases, APIs, and internal tools without writing custom connectors. The companion feature allowing MCP-compliant tools in agent workflows reaches preview in April and GA in October.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> If you are planning an enterprise Copilot Studio agent that needs to call internal Java microservices or a proprietary data store, the custom MCP server path is the production-ready route from April onward.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-orange">GA: April 2026</span>
-          </div>
-          <a class="source-link" href="https://learn.microsoft.com/en-us/power-platform/release-plan/2026wave1/microsoft-copilot-studio/planned-features" target="_blank">Microsoft Learn</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#3</div>
-          <h3><a href="https://github.blog/changelog/2026-03-11-major-agentic-capabilities-improvements-in-github-copilot-for-jetbrains-ides/" target="_blank">JetBrains: Agent Hooks in Preview, Custom Agents GA</a></h3>
-        </div>
-        <p class="description">For enterprise teams on IntelliJ and JetBrains IDEs: custom agents, sub-agents, and plan agent are now generally available. Agent hooks — which run custom commands at key agent lifecycle events like <code>userPromptSubmitted</code>, <code>preToolUse</code>, and <code>postToolUse</code> — are in public preview. Auto-approve for MCP tools is now configurable at both server and tool level. Requires enabling "Editor preview features" in Copilot Business or Enterprise admin settings.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> Use agent hooks to enforce code quality policies automatically — for example, trigger a linting run via <code>preToolUse</code> before every file edit the agent makes.</div>
-        <div class="card-footer">
-          <div class="tags">
-            <span class="tag tag-green">Custom Agents: GA</span>
-            <span class="tag tag-yellow">Hooks: Preview</span>
-          </div>
-          <a class="source-link" href="https://github.blog/changelog/2026-03-11-major-agentic-capabilities-improvements-in-github-copilot-for-jetbrains-ides/" target="_blank">GitHub Changelog</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 4: Community -->
-  <section>
-    <div class="section-header">
-      <h2>Community Picks</h2>
-      <span class="count-badge">3 picks</span>
-    </div>
-    <div class="card-grid">
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#1</div>
-          <h3><a href="https://www.reddit.com/r/GithubCopilot/comments/1rk6shv/ama_to_celebrate_50000_rgithubcopilot_members/" target="_blank">r/GithubCopilot AMA Hits 50,000 Members — GitHub Team Joins</a></h3>
-        </div>
-        <div style="margin-bottom:8px;"><span class="tag tag-red" style="font-size:0.71rem;">Reddit &middot; r/GithubCopilot</span></div>
-        <p class="description">The community crossed 50,000 members this week, with GitHub and Microsoft engineers joining a live AMA. Key clarification from the team: the Copilot SDK is MIT-licensed and you can bundle the CLI for personal use, internal tools, or basic web projects without commercial licensing. Commercial products require contacting GitHub. The premium request model is staying for now, with no current plans for per-token billing.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> The SDK is MIT-licensed — you can build internal tooling on top of Copilot SDK without commercial concerns. Only building a product you sell requires a formal agreement with GitHub.</div>
-        <div class="card-footer">
-          <div class="tags"><span class="tag tag-blue">Community Milestone</span></div>
-          <a class="source-link" href="https://www.reddit.com/r/GithubCopilot/comments/1rk6shv/ama_to_celebrate_50000_rgithubcopilot_members/" target="_blank">Reddit Thread</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#2</div>
-          <h3><a href="https://gist.github.com/burkeholland/d75ce366a659928310cdc5e26cb08dba" target="_blank">Developer Builds Personal AI Assistant Daemon on Copilot SDK</a></h3>
-        </div>
-        <div style="margin-bottom:8px;"><span class="tag tag-red" style="font-size:0.71rem;">GitHub Gist &middot; burke holland</span></div>
-        <p class="description">A detailed work log showing a developer who built a personal AI assistant daemon ("Max") running 24/7 on their local machine using the GitHub Copilot SDK. The assistant handles coding tasks, file management, and orchestrates worker sessions. Key engineering challenge: worker sessions were never being destroyed (~400 MB RSS each), causing overnight out-of-memory crashes — fixed by adding explicit session lifecycle management.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> The Copilot SDK is production-capable for personal automation tooling, but long-running worker sessions must be explicitly destroyed — the SDK does not clean them up automatically.</div>
-        <button class="read-more-btn" onclick="toggleRM(this)">+ Technical Notes</button>
-        <div class="read-more-content">
-          <ol>
-            <li>Copilot SDK powers the conversational layer and can run coding tasks, manage files, and orchestrate worker sessions.</li>
-            <li>Each worker session consumes ~400 MB RSS — must be explicitly destroyed when done.</li>
-            <li>Session resumption is limited by the SDK; the workaround is context injection into new sessions.</li>
-            <li>See the Gist for the full architecture and lessons learned from running this 24/7.</li>
-          </ol>
-          <div class="example">Real Example for automation builders: if you spawn Copilot SDK worker sessions in a Make.com or similar automation pipeline, ensure each session is explicitly terminated after the task completes to prevent memory accumulation.</div>
-        </div>
-        <div class="card-footer">
-          <div class="tags"><span class="tag tag-orange">SDK Deep Dive</span></div>
-          <a class="source-link" href="https://gist.github.com/burkeholland/d75ce366a659928310cdc5e26cb08dba" target="_blank">GitHub Gist</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="rank-badge">#3</div>
-          <h3><a href="https://www.youtube.com/watch?v=EU2xbJI3rPQ" target="_blank">YouTube: GitHub Actions + Copilot Agent Mode for CI/CD — Go Fast with GitHub</a></h3>
-        </div>
-        <div style="margin-bottom:8px;"><span class="tag tag-red" style="font-size:0.71rem;">YouTube &middot; GitHub</span></div>
-        <p class="description">A hands-on session showing how to use Copilot agent mode inside VS Code to generate and refactor GitHub Actions workflows for a .NET app, deploy to Azure with OpenID Connect, and use MCP to bring GitHub issue and PR context into the dev flow. Demonstrates creating custom DevOps agents specialized for workflow optimization and best practices.</p>
-        <div class="takeaway"><strong>Key Takeaway:</strong> You can use Copilot agent mode to write, explain, troubleshoot, and refactor YAML pipelines — including multi-step refactors that introduce reusable workflow patterns across your entire CI/CD setup.</div>
-        <div class="card-footer">
-          <div class="tags"><span class="tag tag-blue">Tutorial</span></div>
-          <a class="source-link" href="https://www.youtube.com/watch?v=EU2xbJI3rPQ" target="_blank">YouTube</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PHANI'S PICK -->
-  <div class="phani-pick">
-    <div class="phani-label">Phani's Pick of the Week</div>
-    <h3>Act Now: Opt Out of Copilot Data Training Before April 24</h3>
-    <p>The single most time-sensitive action this week is checking your data policy settings. If you are on Copilot Pro or Pro+, GitHub will begin using your interaction data — including code snippets, accepted completions, and chat inputs — to train models starting April 24, unless you opt out. Go to your GitHub account settings, navigate to Privacy, and disable "Allow GitHub to use my data to improve GitHub Copilot." Takes 30 seconds and protects your codebase from being part of the training corpus. Copilot Business and Enterprise users are not affected.</p>
-  </div>
-
-  <div class="footer-meta">
-    <p>Sources: <a href="https://code.visualstudio.com/updates/v1_113" target="_blank">VS Code 1.113 Release Notes</a> &middot; <a href="https://github.com/github/copilot-cli/releases" target="_blank">Copilot CLI Releases</a> &middot; <a href="https://github.blog/changelog/" target="_blank">GitHub Changelog</a> &middot; <a href="https://www.reddit.com/r/GithubCopilot/" target="_blank">Reddit r/GithubCopilot</a> &middot; <a href="https://www.microsoft.com/en-us/power-platform/blog/" target="_blank">Microsoft Power Platform Blog</a></p>
-    <p>Auto-generated &middot; March 28, 2026 &middot; <a href="https://phanikumar-rudra.github.io/ai-news/" target="_blank">phanikumar-rudra.github.io/ai-news</a></p>
-  </div>
-
-      <div class="edition-divider">&#8212; End of March 28, 2026 edition &#8212;</div>
-    </div>
-  </div>
-</div>
-
-<div class="site-footer">
-  <p>Sources: <a href="https://github.blog/changelog/" target="_blank">GitHub Changelog</a> &middot; <a href="https://code.visualstudio.com/updates" target="_blank">VS Code Release Notes</a> &middot; <a href="https://github.blog/" target="_blank">GitHub Blog</a> &middot; <a href="https://www.reddit.com/r/GithubCopilot/" target="_blank">Reddit r/GithubCopilot</a></p>
-  <p style="margin-top:6px;">Auto-generated every Saturday &middot; <a href="https://phanikumar-rudra.github.io/ai-news/" target="_blank">phanikumar-rudra.github.io/ai-news</a></p>
 </div>
 
 <script>
-  function toggleEdition(toggle) {
-    toggle.classList.toggle('open');
-    var body = toggle.nextElementSibling;
-    body.classList.toggle('open');
-  }
   function toggleRM(btn) {
     var content = btn.nextElementSibling;
     var isOpen = content.classList.contains('open');
     content.classList.toggle('open');
     if (!isOpen) {
-      if (!btn.getAttribute('data-label')) btn.setAttribute('data-label', btn.textContent.replace('+ ',''));
+      if (!btn.getAttribute('data-label')) btn.setAttribute('data-label', btn.textContent.replace('+ ', ''));
       btn.textContent = '- Collapse';
     } else {
-      btn.textContent = '+ ' + (btn.getAttribute('data-label') || 'Step-by-Step Guide');
+      btn.textContent = '+ ' + (btn.getAttribute('data-label') || 'Details');
     }
   }
 </script>
