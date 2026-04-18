@@ -296,8 +296,8 @@
   <h1><span class="accent">DevAssist</span> Weekly</h1>
   <p class="subtitle">GitHub Copilot &nbsp;&middot;&nbsp; VS Code &nbsp;&middot;&nbsp; Microsoft AI &nbsp;&middot;&nbsp; Community</p>
   <div class="meta-row">
-    <span class="meta-pill green">3 editions published</span>
-    <span class="meta-pill">Latest: April 11, 2026</span>
+    <span class="meta-pill green">4 editions published</span>
+    <span class="meta-pill">Latest: April 18, 2026</span>
     <span class="meta-pill">Updated every Saturday at 9am ET</span>
   </div>
 </div>
@@ -309,13 +309,366 @@
       <div class="left">
         <span class="edition-badge-pill latest">Latest</span>
         <div>
+          <div class="edition-title">VS Code 1.116 Ships April 15 &mdash; Copilot Now Built In, Terminal Agent Tools for All Terminals, and Network Access Policies for Admins</div>
+          <div class="edition-date">April 18, 2026</div>
+        </div>
+      </div>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="edition-body open">
+
+
+  <!-- TOP STORY -->
+  <div class="top-story">
+    <div class="story-label">Top Story This Week</div>
+    <h2>VS Code 1.116 Ships April 15 &mdash; Copilot Now Built In, Terminal Agent Tools for All Terminals, and Network Access Policies for Admins</h2>
+    <p>The April 15 release of VS Code 1.116 is a landmark edition: GitHub Copilot Chat is now a built-in extension &mdash; new users get AI features out of the box without installing anything. Terminal agent tools (<code>send_to_terminal</code>, <code>get_terminal_output</code>) now reach every visible terminal, not just agent-created backgrounds, meaning an agent can read from and write to any running REPL or interactive script. Enterprise admins gain group policies to restrict which network domains agent tools can reach &mdash; a critical control for regulated environments. Six Copilot CLI releases also dropped this week, including Claude Opus 4.7 support and auto model selection going GA.</p>
+    <div class="meta">
+      <a href="https://code.visualstudio.com/updates/v1_116" target="_blank">Read: VS Code 1.116 Release Notes</a>
+      <a href="https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/" target="_blank">Read: Claude Opus 4.7 GA</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: VS Code -->
+  <section>
+    <div class="section-header">
+      <h2>VS Code + GitHub Copilot</h2>
+      <span class="count-badge">5 updates</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#1</div>
+          <h3><a href="https://code.visualstudio.com/updates/v1_116" target="_blank">Copilot Chat Is Now Built Into VS Code &mdash; No Extension Install Required</a></h3>
+        </div>
+        <p class="description">Starting with VS Code 1.116, GitHub Copilot Chat ships as a built-in extension &mdash; new users get chat, inline suggestions, and agents out of the box without visiting the Marketplace. Existing users with the Copilot extension installed are not affected; it continues to work as before. If you prefer not to use AI features, disable them with <code>chat.disableAIFeatures</code>. This is a core step in Microsoft's push to make VS Code the default open-source AI code editor.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Onboarding new developers to your team? They get Copilot on first launch without any setup steps. No more "install the Copilot extension" in your dev environment setup docs.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">Built-In Default</span>
+            <span class="tag tag-green">VS Code 1.116</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_116" target="_blank">VS Code 1.116 Release Notes</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#2</div>
+          <h3><a href="https://code.visualstudio.com/updates/v1_116" target="_blank">Terminal Agent Tools Now Reach Any Visible Terminal</a></h3>
+        </div>
+        <p class="description">The <code>send_to_terminal</code> and <code>get_terminal_output</code> tools now work on foreground terminals &mdash; any terminal currently visible in the terminal panel, not only background terminals created by the agent. This means an agent can read output from a running REPL, send input to an interactive script, respond to a debugger prompt, or interact with any process already running in your workspace. Paired with the LLM-based prompt detection being removed (each terminal output chunk no longer triggers an extra LLM call), agent terminal interactions are now faster and cheaper in terms of token usage.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> An agent can now interact with your Spring Boot REPL, your running Node.js dev server, or any open database CLI session &mdash; not just processes it spawned itself.</div>
+        <button class="read-more-btn" onclick="toggleRM(this)">+ Terminal Improvements Detail</button>
+        <div class="read-more-content">
+          <ol>
+            <li><strong>LLM detection removed:</strong> Previously, every terminal output chunk triggered an LLM call to classify whether the terminal was waiting for input. That is gone. The agent now uses <code>send_to_terminal</code> directly and uses the question carousel to defer to you when needed.</li>
+            <li><strong>Progress messages:</strong> When the agent sends an answer to the terminal, the progress message shows which question is being answered (e.g., "Sending 'my-project' to terminal (replying to: What is your project name?)").</li>
+            <li><strong>Focus Terminal button:</strong> When the agent needs terminal input (password, npm init prompt), the question carousel includes a "Focus Terminal" button. Click it to take over and type directly. If you start typing, the carousel dismisses automatically and informs the agent you are handling it.</li>
+            <li><strong>Background notifications on by default:</strong> <code>chat.tools.terminal.backgroundNotifications</code> is now enabled by default &mdash; the agent receives instant notifications when background commands complete, time out, or require input.</li>
+          </ol>
+          <div class="example">Real Example: Your agent is running a Maven build in a background terminal. When the build finishes and triggers an interactive prompt for a test environment password, the agent is notified immediately, shows the question carousel, and either sends the password (if previously approved) or prompts you via the Focus Terminal button &mdash; no polling, no timeout.</div>
+        </div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">New Capability</span>
+            <span class="tag tag-green">VS Code 1.116</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_116" target="_blank">VS Code 1.116 Release Notes</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#3</div>
+          <h3><a href="https://code.visualstudio.com/updates/v1_116" target="_blank">Enterprise: Group Policy to Control Agent Network Access</a></h3>
+        </div>
+        <p class="description">Admins can now define allowlists and denylists for which network domains agent tools (the <code>fetch</code> tool, integrated browser) can reach. Controlled via three group policy keys: <code>ChatAgentNetworkFilter</code> (enable/disable), <code>ChatAgentAllowedNetworkDomains</code> (wildcards supported, e.g., <code>*.example.com</code>), and <code>ChatAgentDeniedNetworkDomains</code> (takes precedence over allow). When the filter is enabled and both lists are empty, all external network access from agent tools is blocked. The rules also apply to the terminal sandbox when <code>chat.agent.sandbox.enabled</code> is active.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Enterprises with strict data egress requirements can now ensure agents cannot fetch from unauthorized external domains &mdash; critical for financial, healthcare, and government environments where data must stay within defined boundaries.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-orange">Enterprise Policy</span>
+            <span class="tag tag-blue">Security</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_116" target="_blank">VS Code 1.116 Release Notes</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#4</div>
+          <h3><a href="https://code.visualstudio.com/updates/v1_116" target="_blank">Chat Customizations Welcome Page &mdash; Describe Your Agent in Plain English</a></h3>
+        </div>
+        <p class="description">The Chat Customizations dialog (accessible via <code>Chat: Open Customizations</code> or the gear icon) now shows a welcome page with an overview of all your customizations. A new "Customize Your Agent" input field lets VS Code draft agents, skills, and instructions from a natural language description. Instead of writing <code>.agent.md</code> YAML frontmatter by hand, describe what you want ("A Java API agent that follows our Spring Boot conventions and enforces Lombok usage") and VS Code generates the customization file for you to review and edit.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> The barrier to creating team-specific custom agents drops significantly &mdash; describe the agent in a sentence, let VS Code generate the file, then refine rather than author from scratch.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">New Feature</span>
+            <span class="tag tag-green">VS Code 1.116</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_116" target="_blank">VS Code 1.116 Release Notes</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#5</div>
+          <h3><a href="https://code.visualstudio.com/updates/v1_116" target="_blank">Code Diffs Now Render Inline in Chat &mdash; No More Context Switching</a></h3>
+        </div>
+        <p class="description">Proposed code changes now render as diffs directly inside the chat conversation thread rather than opening in a separate diff editor. Alongside this, the tool confirmation carousel (experimental, <code>chat.tools.confirmationCarousel.enabled</code>) gives a compact, navigable view for reviewing and approving multiple tool calls in sequence without scrolling through the conversation. Enabled by default in VS Code Insiders and rolling out gradually to Stable. Chat rendering performance is also improved: reduced layout thrashing, more efficient incremental updates during streaming, and a fix for rapid tool invocation bursts causing brief extension host hangs.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> In agent sessions that make many small targeted edits, you can now review all proposed changes inline in context and approve them sequentially via the carousel &mdash; dramatically reducing the back-and-forth of reviewing diffs.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">UX Improvement</span>
+            <span class="tag tag-yellow">Carousel: Experimental</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_116" target="_blank">VS Code 1.116 Release Notes</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: GitHub.com -->
+  <section>
+    <div class="section-header">
+      <h2>GitHub.com Copilot</h2>
+      <span class="count-badge">5 updates</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#1</div>
+          <h3><a href="https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/" target="_blank">Claude Opus 4.7 Now Generally Available &mdash; 7.5x Multiplier Until April 30</a></h3>
+        </div>
+        <p class="description">Claude Opus 4.7, Anthropic's latest model, is now rolling out across all Copilot surfaces (VS Code, VS, JetBrains, CLI, cloud agent, github.com, Xcode, Eclipse, Mobile). Available to Pro+, Business, and Enterprise. It delivers stronger multi-step task performance, more reliable agentic execution, and improved long-horizon reasoning versus its predecessor Opus 4.6. Over the coming weeks it will replace both Opus 4.5 and Opus 4.6 in the Pro+ model picker. <strong>Important:</strong> it launches with a 7.5x premium request multiplier as promotional pricing valid through April 30. After April 30 the multiplier increases. Business and Enterprise admins must enable the Claude Opus 4.7 policy in Copilot settings before users can select it.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> If you are on Pro+ and want to try Opus 4.7, do it before April 30 &mdash; the 7.5x promotional rate is the lowest it will be. Best used for complex multi-step agent tasks or long-horizon architecture problems, not routine completions.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-green">GA: April 16</span>
+            <span class="tag tag-orange">7.5x Promo Until Apr 30</span>
+          </div>
+          <a class="source-link" href="https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/" target="_blank">GitHub Changelog</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#2</div>
+          <h3><a href="https://github.blog/changelog/2026-04-15-copilot-data-residency-in-us-eu-and-fedramp-compliance-now-available/" target="_blank">Copilot Data Residency (US + EU) and FedRAMP Compliance Now Available</a></h3>
+        </div>
+        <p class="description">GitHub Copilot now supports geographic data residency for US and EU regions &mdash; all inference processing and associated data stays within the designated geography. For US government customers, all model hosts and infrastructure meet FedRAMP Moderate authorization standards. Enterprise and organization admins enable the policies from Copilot settings; off by default. Enabling data residency restricts the org to models that are data-resident or FedRAMP compliant, which carries a 10% increase in the model multiplier.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> If your organization operates under GDPR (EU data residency) or US federal compliance requirements (FedRAMP), Copilot can now satisfy those constraints natively &mdash; no third-party proxy or custom routing required. Factor in the 10% multiplier cost when scoping your Copilot budget.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-orange">Enterprise</span>
+            <span class="tag tag-blue">Compliance</span>
+          </div>
+          <a class="source-link" href="https://github.blog/changelog/2026-04-15-copilot-data-residency-in-us-eu-and-fedramp-compliance-now-available/" target="_blank">GitHub Changelog</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#3</div>
+          <h3><a href="https://github.blog/changelog/2026-04-15-enable-copilot-cloud-agent-via-custom-properties/" target="_blank">Enable Cloud Agent Per-Organization via Custom Properties</a></h3>
+        </div>
+        <p class="description">Enterprise admins can now enable the Copilot cloud agent (CCA) for specific organizations individually, rather than having only three options (everywhere, nowhere, or each org decides). Configured via the AI Controls page under Agent &gt; Copilot Cloud Agent &gt; "Enabled for selected organizations", or via new REST API endpoints. Also available: select by custom property (evaluated once at configuration time &mdash; later property changes do not automatically adjust CCA access). Enables progressive rollout: pilot with one team, expand org by org, without exposing the entire enterprise at once.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Rolling out CCA to a pilot team no longer means enabling it across the entire enterprise. Target a single org or a custom-property-tagged group and expand progressively as confidence builds.</div>
+        <button class="read-more-btn" onclick="toggleRM(this)">+ Configuration Steps</button>
+        <div class="read-more-content">
+          <ol>
+            <li>Go to your enterprise's AI Controls settings page.</li>
+            <li>Navigate to Agent &rarr; Copilot Cloud Agent.</li>
+            <li>Select "Enabled for selected organizations."</li>
+            <li>Add specific organizations manually, or create a policy by custom property.</li>
+            <li>Note: custom property evaluation is a one-time snapshot &mdash; changing org properties later does not automatically update CCA access.</li>
+          </ol>
+          <div class="example">Real Example: Enable CCA only for your "platform-engineering" organization to run a 4-week pilot. After validating security, usage patterns, and developer satisfaction, add "backend-services" and "frontend-teams" progressively over the next two sprints.</div>
+        </div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-orange">Enterprise</span>
+            <span class="tag tag-blue">New Control</span>
+          </div>
+          <a class="source-link" href="https://github.blog/changelog/2026-04-15-enable-copilot-cloud-agent-via-custom-properties/" target="_blank">GitHub Changelog</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#4</div>
+          <h3><a href="https://releasebot.io/updates/github" target="_blank">Copilot CLI 1.0.29&ndash;1.0.32: Document Attachments, Auto Model Selection GA, Remote Session Connect</a></h3>
+        </div>
+        <p class="description">Six Copilot CLI releases landed this week. The headline additions: auto model selection is now generally available in the CLI (Copilot picks the most efficient model automatically, with a 10% premium request discount); document attachments allow attaching files to CLI sessions; direct remote session connecting allows reconnecting to cloud agent sessions without polling; <code>/statusline</code> command for customizing the terminal status bar; <code>--list-env</code> flag for prompt mode; and clearer usage and rate-limit warning messages. The 1.0.29 release also adds support for Claude Opus 4.7 in the model picker and Remote MCP server config defaults.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Enable Auto model selection in the CLI (<code>/model auto</code>) and get the 10% discount automatically. Use document attachments to feed architecture docs, API specs, or runbooks into CLI sessions without pasting content manually.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-green">Auto Selection: GA</span>
+            <span class="tag tag-blue">CLI Release</span>
+          </div>
+          <a class="source-link" href="https://releasebot.io/updates/github" target="_blank">Releasebot &mdash; GitHub Release Notes</a>
+        </div>
+      </div>
+
+      <div class="card alert-card">
+        <div class="card-top">
+          <div class="rank-badge">#5</div>
+          <h3><a href="https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/" target="_blank">Training Data Opt-Out Deadline: 6 Days Remaining (April 24)</a></h3>
+        </div>
+        <p class="description">Starting April 24, GitHub will use interaction data from Copilot Free, Pro, and Pro+ users to train AI models unless users have opted out. Data includes accepted completions, code snippets, cursor context, file names, and chat interactions. Copilot Business and Enterprise users are not affected. Users who are members of or outside collaborators with a paid GitHub organization are also excluded regardless of their personal subscription tier.</p>
+        <div class="takeaway"><strong>Final Reminder:</strong> 6 days left. Go to GitHub Settings &rarr; Copilot &rarr; Features &rarr; disable "Allow GitHub to use my data for AI model training." Takes 30 seconds. Share this with your team members on personal Pro plans.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-red">Deadline: April 24</span>
+            <span class="tag tag-orange">Final Reminder</span>
+          </div>
+          <a class="source-link" href="https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/" target="_blank">GitHub Blog</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: Enterprise -->
+  <section>
+    <div class="section-header">
+      <h2>Microsoft Copilot for Enterprise</h2>
+      <span class="count-badge">3 updates</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#1</div>
+          <h3><a href="https://learn.microsoft.com/en-us/partner-center/announcements/2026-april" target="_blank">M365 Copilot "Copilot for All" Promo: IW Coverage Requirement Removed, 40% Tier Lowered to 1,000 Seats</a></h3>
+        </div>
+        <p class="description">Effective April 14, Microsoft expanded eligibility for the CSP "Copilot for All" promotional discounts. Key changes: the 80% Information Worker (IW) coverage threshold is removed, unblocking deals previously stalled on this requirement; the 40% discount tier now starts at 1,000 licenses (down from 1,500), opening it to more mid-market accounts; and CSP customers for the 40% offer can now transact directly through Partner Center without tenant pre-activation. The full discount ladder runs from 15% (10+ seats) to 40% (1,000+ seats).</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> If your organization or a client was blocked from M365 Copilot pricing by the IW coverage requirement, those deals are now eligible. Raise this with your Microsoft partner or licensing contact before the July 1 pricing adjustment.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-orange">Enterprise Licensing</span>
+            <span class="tag tag-green">Effective April 14</span>
+          </div>
+          <a class="source-link" href="https://learn.microsoft.com/en-us/partner-center/announcements/2026-april" target="_blank">Microsoft Partner Center Announcements</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#2</div>
+          <h3><a href="https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes-insiders" target="_blank">Visual Studio 2026 April Update: C++ App Modernization and Code Editing Tools in Private Preview</a></h3>
+        </div>
+        <p class="description">The Visual Studio 2026 April update (released April 14) adds two significant Copilot features in private preview for C++ developers. Copilot app modernization for C++ helps migrate projects to the latest MSVC Build Tools &mdash; automated migration guidance through Copilot chat. C++ Code Editing Tools for Agent Mode adds language-aware symbol navigation (find all references, type metadata, declarations, scope) directly into agent sessions, enabling more accurate refactoring of large C++ codebases. The update also fixes several regressions including Copilot Code Search failures and custom instruction file injection issues.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> If your team maintains any C++ legacy codebases alongside Java or TypeScript, Copilot app modernization in private preview is worth requesting access to &mdash; automated migration guidance for MSVC toolchain updates has historically been purely manual work.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-yellow">Private Preview</span>
+            <span class="tag tag-blue">VS 2026 April Update</span>
+          </div>
+          <a class="source-link" href="https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes-insiders" target="_blank">Visual Studio 2026 Insiders Release Notes</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#3</div>
+          <h3><a href="https://www.reddit.com/r/GithubCopilot/comments/1snd6z9/github_copilot_team_you_need_to_pay_attention/" target="_blank">Developer Pushback: Rate Limiting, Context Limits, and Competitor Comparisons</a></h3>
+        </div>
+        <p class="description">A widely-read Reddit thread this week captures genuine frustration from developers hitting Claude model rate limits, context window errors requiring multi-hour waits, and GPT-5.4 sessions that do not complete complex analysis tasks reliably. The same thread surfaces a workflow tip gaining traction: rather than asking Copilot to analyze and immediately apply changes, ask it to first generate a <code>plan.md</code> file with milestones and tasks, then execute steps from that file. This forces structured reasoning before code generation and significantly reduces incomplete or inconsistent outputs on large tasks.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> For complex analysis or refactoring tasks on large codebases, instruct Copilot to "generate a plan.md with milestones first, then wait for my approval before implementing." This pattern consistently produces better results and is less likely to hit context limits mid-task.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-orange">Community Insight</span></div>
+          <a class="source-link" href="https://www.reddit.com/r/GithubCopilot/comments/1snd6z9/github_copilot_team_you_need_to_pay_attention/" target="_blank">Reddit r/GithubCopilot</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: Community -->
+  <section>
+    <div class="section-header">
+      <h2>Community Picks</h2>
+      <span class="count-badge">3 picks</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#1</div>
+          <h3><a href="https://www.nxcode.io/resources/news/github-copilot-getting-worse-2026-developers-switching" target="_blank">Is GitHub Copilot Getting Worse? What the Developer Backlash Actually Reveals</a></h3>
+        </div>
+        <div style="margin-bottom:8px;"><span class="tag tag-orange" style="font-size:0.71rem;">NxCode Analysis &middot; April 6, 2026</span></div>
+        <p class="description">An analytical piece synthesizing months of GitHub Community discussions, Reddit threads, and developer blogs documenting Copilot quality concerns. Key findings: model swap regressions during the GPT-5 series rollout caused real workflow disruptions; the March 2026 PR "tips" injection incident (Copilot inserted a Raycast ad into 1.5M PRs) caused a significant trust drop; alternatives like Cursor and Claude Code now benchmark higher on multi-file context. Counter-arguments: multi-model support, CLI agent, organization custom instructions, and Copilot Spaces are substantive improvements. The piece concludes Copilot remains the most widely deployed tool but is no longer the undisputed quality leader.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> The honest answer is: Copilot is best evaluated per workflow. Enable multi-model selection, use Auto mode for daily work, switch to a high-reasoning model explicitly for architecture tasks, and use Cursor or Claude Code for deep multi-file context work if your team finds Copilot insufficient there.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-red">Critical Analysis</span></div>
+          <a class="source-link" href="https://www.nxcode.io/resources/news/github-copilot-getting-worse-2026-developers-switching" target="_blank">NxCode</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#2</div>
+          <h3><a href="https://www.infoq.com/news/2026/04/github-copilot-cli-ga/" target="_blank">InfoQ: Copilot CLI GA &mdash; From Terminal Assistant to Agentic Infrastructure</a></h3>
+        </div>
+        <div style="margin-bottom:8px;"><span class="tag tag-blue" style="font-size:0.71rem;">InfoQ &middot; April 12, 2026</span></div>
+        <p class="description">A well-researched InfoQ analysis of the Copilot CLI GA milestone, framing it as a shift from "AI assistant in the terminal" to "AI as development infrastructure." Key insights: the suggest flow (each command requires explicit approval) and Autopilot mode (autonomous multi-step, no interruptions) are intentionally distinct &mdash; suggest for safety-conscious environments, Autopilot for trusted local dev. Organization-level CLI usage metrics now let admins track daily active users and token consumption specifically for terminal sessions. Hallucination risk is addressed by requiring explicit review before execution.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> The distinction between suggest mode and Autopilot mode is worth understanding deeply. Default to suggest for production-touching workflows; use Autopilot only for isolated dev environment tasks where a revert is trivial.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-blue">Analysis</span></div>
+          <a class="source-link" href="https://www.infoq.com/news/2026/04/github-copilot-cli-ga/" target="_blank">InfoQ</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="rank-badge">#3</div>
+          <h3><a href="https://releasebot.io/updates/github" target="_blank">Copilot CLI Tip: Use /ask for Quick One-Shot Questions Without Starting a Session</a></h3>
+        </div>
+        <div style="margin-bottom:8px;"><span class="tag tag-blue" style="font-size:0.71rem;">CLI v1.0.27 &middot; April 15, 2026</span></div>
+        <p class="description">A community-highlighted addition from the Copilot CLI 1.0.27 release: the new <code>/ask</code> command lets you send a single question to Copilot and get a response without starting a full interactive session. Useful for quick lookups ("what flag does <code>git log</code> use for one-line format?"), in-shell documentation checks, or rapid command generation without entering the full CLI REPL. The same release also added <code>/feedback</code> with a bundle saved to TEMP when the working directory is not writable, and improved plugin catalog refresh.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Add <code>copilot /ask "..."</code> to your shell workflow for instant AI-assisted documentation lookups and command construction. Faster than opening a browser and more context-aware than a generic search.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-green">New CLI Command</span></div>
+          <a class="source-link" href="https://releasebot.io/updates/github" target="_blank">Releasebot &mdash; Copilot CLI Releases</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHANI'S PICK -->
+  <div class="phani-pick">
+    <div class="phani-label">Phani's Pick of the Week</div>
+    <h3>Enable Copilot CLI Auto Model Selection and Use Document Attachments for Architecture Conversations</h3>
+    <p>Two quick wins from this week's CLI releases that compound well together. First, run <code>/model auto</code> in your Copilot CLI session to enable auto model selection &mdash; you get a 10% premium request discount and Copilot picks the right model tier for each prompt automatically, so you stop burning Opus-tier requests on tasks that GPT-4.1 handles just as well. Second, use document attachments (available in CLI 1.0.32) to attach your project's architecture.md, API design doc, or sprint backlog to the session upfront &mdash; eliminating the need to paste context manually and giving the agent full document awareness without consuming chat tokens on repetitive context injection. Combined, these two changes reduce both cost and setup friction for every CLI session.</p>
+  </div>
+
+  <div class="footer-meta">
+    <p>Sources: <a href="https://code.visualstudio.com/updates/v1_116" target="_blank">VS Code 1.116 Release Notes</a> &middot; <a href="https://github.blog/changelog/" target="_blank">GitHub Changelog</a> &middot; <a href="https://releasebot.io/updates/github" target="_blank">Releasebot &mdash; GitHub Releases</a> &middot; <a href="https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes-insiders" target="_blank">Visual Studio 2026 Insiders</a> &middot; <a href="https://learn.microsoft.com/en-us/partner-center/announcements/2026-april" target="_blank">Microsoft Partner Center</a> &middot; <a href="https://www.infoq.com/news/2026/04/github-copilot-cli-ga/" target="_blank">InfoQ</a> &middot; Reddit</p>
+    <p>Auto-generated &middot; April 18, 2026 &middot; <a href="https://phanikumar-rudra.github.io/ai-news/" target="_blank">phanikumar-rudra.github.io/ai-news</a></p>
+  </div>
+
+      <div class="edition-divider">&#8212; End of April 18, 2026 edition &#8212;</div>
+    </div>
+  </div>
+
+  <div class="edition-wrapper">
+    <div class="edition-toggle" onclick="toggleEdition(this)">
+      <div class="left">
+        <span class="edition-badge-pill">Archive</span>
+        <div>
           <div class="edition-title">VS Code 1.115 Ships the Agents App &mdash; Run Parallel Agent Sessions Across Multiple Repos</div>
           <div class="edition-date">April 11, 2026</div>
         </div>
       </div>
       <span class="chevron">&#9660;</span>
     </div>
-    <div class="edition-body open">
+    <div class="edition-body">
 
 
   <!-- TOP STORY -->
