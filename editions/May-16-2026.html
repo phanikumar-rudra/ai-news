@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevAssist Weekly — May 16, 2026</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --accent3: #e3b341;
+      --accent-orange: #f0883e;
+      --accent-red: #f85149;
+      --text: #c9d1d9;
+      --text-dim: #8b949e;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      padding: 0 16px 80px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.82em;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      color: #ff7b72;
+    }
+    /* STANDALONE HEADER */
+    header {
+      background: linear-gradient(160deg, #161b22 0%, #0d1117 70%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px 32px;
+      text-align: center;
+      margin: 0 -16px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: -60px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 220px;
+      background: radial-gradient(ellipse, rgba(88,166,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header h1 { font-size: 2rem; font-weight: 800; color: #e6edf3; letter-spacing: -0.5px; }
+    header h1 .accent { color: var(--accent); }
+    header .subtitle { color: var(--text-dim); margin-top: 8px; font-size: 0.93rem; }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .back-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .edition-badge {
+      display: inline-block;
+      margin-top: 12px;
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.25);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    /* CONTAINER */
+    .container { max-width: 1100px; margin: 0 auto; }
+    /* TOP STORY */
+    .top-story {
+      background: linear-gradient(135deg, #1c2a3f 0%, #161b22 100%);
+      border: 1px solid #1f6feb;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .top-story::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #3fb950, #f0883e);
+    }
+    .story-label {
+      display: inline-block;
+      background: #1f6feb;
+      color: #e6edf3;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .top-story h2 { font-size: 1.35rem; font-weight: 700; color: #e6edf3; margin-bottom: 10px; line-height: 1.35; }
+    .top-story p { color: var(--text); font-size: 0.95rem; max-width: 820px; line-height: 1.7; }
+    .top-story .meta { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .top-story .meta a {
+      display: inline-flex; align-items: center;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 5px 13px;
+      font-size: 0.83rem; font-weight: 600; color: var(--accent);
+      transition: all 0.2s;
+    }
+    .top-story .meta a:hover { background: rgba(31,111,235,0.15); border-color: var(--accent); text-decoration: none; }
+    /* SECTION */
+    section { margin-bottom: 40px; }
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 18px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header h2 { font-size: 1.05rem; font-weight: 700; color: #e6edf3; }
+    .count-badge {
+      margin-left: auto;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2px 10px;
+      font-size: 0.74rem; color: var(--text-dim);
+    }
+    /* CARD GRID */
+    .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    @media (max-width: 768px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.5rem; }
+      .top-story { padding: 20px 18px; }
+      .top-story h2 { font-size: 1.1rem; }
+    }
+    /* CARD */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 18px 14px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.45); border-color: rgba(88,166,255,0.3); }
+    .card-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .rank-badge {
+      background: var(--surface2); border: 1px solid var(--border); color: var(--accent);
+      font-size: 0.68rem; font-weight: 700; min-width: 28px; height: 19px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 4px; flex-shrink: 0; margin-top: 3px;
+    }
+    .card h3 { font-size: 0.92rem; font-weight: 700; color: #e6edf3; line-height: 1.4; }
+    .card h3 a { color: #e6edf3; }
+    .card h3 a:hover { color: var(--accent); text-decoration: none; }
+    .description { font-size: 0.865rem; color: var(--text-dim); margin: 9px 0 11px; line-height: 1.62; }
+    .takeaway {
+      border-left: 3px solid var(--accent); padding: 7px 11px;
+      background: rgba(88,166,255,0.06); border-radius: 0 6px 6px 0;
+      font-size: 0.81rem; color: var(--text); margin-bottom: 12px; line-height: 1.55;
+    }
+    .takeaway strong { color: var(--accent); }
+    .card.alert-card { border-color: rgba(248,81,73,0.4); background: linear-gradient(135deg, #1e1215 0%, var(--surface) 60%); }
+    .card.alert-card:hover { border-color: rgba(248,81,73,0.7); }
+    .card.alert-card .rank-badge { color: var(--accent-red); border-color: rgba(248,81,73,0.4); }
+    .card.alert-card .takeaway { border-left-color: var(--accent-red); background: rgba(248,81,73,0.06); }
+    .card.alert-card .takeaway strong { color: var(--accent-red); }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; border: 1px solid transparent; }
+    .tag-blue   { background: rgba(31,111,235,0.2);  border-color: rgba(31,111,235,0.4);  color: #79c0ff; }
+    .tag-green  { background: rgba(63,185,80,0.15);  border-color: rgba(63,185,80,0.3);   color: #56d364; }
+    .tag-orange { background: rgba(240,136,62,0.15); border-color: rgba(240,136,62,0.3);  color: #ffa657; }
+    .tag-yellow { background: rgba(227,179,65,0.15); border-color: rgba(227,179,65,0.3);  color: #e3b341; }
+    .tag-red    { background: rgba(248,81,73,0.15);  border-color: rgba(248,81,73,0.3);   color: #f85149; }
+    .source-link { font-size: 0.73rem; color: var(--text-dim); transition: color 0.2s; }
+    .source-link:hover { color: var(--accent); }
+    /* READ MORE */
+    .read-more-btn {
+      background: none; border: 1px solid var(--border); color: var(--text-dim);
+      font-size: 0.76rem; padding: 4px 11px; border-radius: 6px; cursor: pointer;
+      transition: all 0.2s; margin-top: 9px; font-family: inherit;
+    }
+    .read-more-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .read-more-content {
+      display: none; margin-top: 11px; padding: 13px;
+      background: var(--surface2); border-radius: 6px; border: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--text-dim); line-height: 1.65;
+    }
+    .read-more-content.open { display: block; }
+    .read-more-content ol { padding-left: 18px; }
+    .read-more-content li { margin-bottom: 6px; }
+    .example {
+      margin-top: 10px; background: rgba(63,185,80,0.06);
+      border-left: 3px solid var(--accent2); padding: 7px 11px;
+      border-radius: 0 4px 4px 0; font-size: 0.8rem; color: var(--text);
+    }
+    /* PHANI PICK */
+    .phani-pick {
+      background: linear-gradient(135deg, #1c2a3f 0%, #161b22 100%);
+      border: 1px solid #1f6feb; border-radius: var(--radius);
+      padding: 24px 28px; margin-top: 12px; position: relative; overflow: hidden;
+    }
+    .phani-pick::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #f0883e, #e3b341);
+    }
+    .phani-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--accent3); margin-bottom: 8px; }
+    .phani-pick h3 { font-size: 1.05rem; font-weight: 700; color: #e6edf3; margin-bottom: 7px; }
+    .phani-pick p { color: var(--text-dim); font-size: 0.88rem; max-width: 760px; line-height: 1.7; }
+    /* SITE FOOTER */
+    .site-footer {
+      margin-top: 48px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center; font-size: 0.76rem; color: var(--text-dim);
+    }
+    .site-footer a { color: var(--text-dim); }
+    .site-footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; Back to Archive</a>
+  <h1><span class="accent">DevAssist</span> Weekly</h1>
+  <p class="subtitle">GitHub Copilot &middot; VS Code &middot; Microsoft AI &middot; Community</p>
+  <p class="subtitle" style="margin-top:6px;">May 16, 2026</p>
+  <div class="edition-badge">Week of May 10&ndash;16, 2026</div>
+</header>
+
+<div class="container">
+
+  <!-- TOP STORY BANNER -->
+  <div class="top-story">
+    <div class="story-label">Top Story</div>
+    <h2>GitHub Copilot App Launches in Technical Preview — A GitHub-Native Agentic Desktop Experience</h2>
+    <p>GitHub shipped the Copilot App (May 14), a standalone desktop product built for agentic development. It is not VS Code — it is a dedicated GitHub-native environment where sessions start from issues, pull requests, and prompts. Each session has its own isolated branch, file tree, and conversation state. You can pause and resume, run parallel tasks across repositories, validate with an integrated terminal and browser, then ship directly to a pull request with Agent Merge handling review comments and failing checks automatically. VS Code 1.120 (May 13) also arrived with its own Agent HQ window in Stable, terminal output compression, AI-powered terminal risk assessment, and major BYOK improvements. This is one of the biggest Copilot release weeks of 2026.</p>
+    <div class="meta">
+      <a href="https://github.blog/changelog/2026-05-14-github-copilot-app-is-now-available-in-technical-preview/" target="_blank">Copilot App Changelog</a>
+      <a href="https://code.visualstudio.com/updates/v1_120" target="_blank">VS Code 1.120 Notes</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: VS Code + GitHub Copilot -->
+  <section>
+    <div class="section-header">
+      <h2>VS Code + GitHub Copilot</h2>
+      <span class="count-badge">5 updates</span>
+    </div>
+    <div class="card-grid">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#1</span>
+          <h3><a href="https://code.visualstudio.com/updates/v1_120" target="_blank">VS Code 1.120: Agents Window Reaches Stable — Agent HQ for Local and Cloud Sessions</a></h3>
+        </div>
+        <p class="description">VS Code 1.120 (May 13) brings the Agents Window out of preview into Stable. It serves as a dedicated companion to the editor for agent-driven development: orchestrate tasks across multiple projects, choose your agent harness (Copilot, Copilot CLI, or Codex), run agents on remote machines, and manage preferences that persist across sessions. The Changes panel now lets you discard edits directly; a sync button pulls upstream changes from the base branch before the agent starts work; completed sessions open with all changes visible by default.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> The Agents Window is now the single HQ for all agent sessions — local VS Code, GitHub Copilot CLI, and Codex — in one place without switching tools.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">VS Code 1.120</span>
+            <span class="tag tag-green">Stable</span>
+            <span class="tag tag-blue">Agent Mode</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_120" target="_blank">code.visualstudio.com</a>
+        </div>
+        <button class="read-more-btn" onclick="toggleRM(this)">+ What's New in the Agents Window</button>
+        <div class="read-more-content">
+          <ol>
+            <li>Open the Agents Window via the "Open in Agents" button in the VS Code title bar.</li>
+            <li>Use arrow buttons in the top-left to jump between recent sessions.</li>
+            <li>The sync button on the Files panel lets you pull upstream base branch changes before an agent run.</li>
+            <li>Settings are shared across VS Code; override specific ones just for the Agents Window.</li>
+            <li>Agent plugins installed via <code>copilot plugin install</code> are now auto-discovered — no separate install needed per surface.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#2</span>
+          <h3><a href="https://code.visualstudio.com/updates/v1_120" target="_blank">Terminal Tool Output Compression and AI Risk Assessment for Terminal Commands</a></h3>
+        </div>
+        <p class="description">Two new safety and efficiency features ship in 1.120. Terminal output compression (<code>chat.tools.compressOutput.enabled</code>, Preview) post-processes long outputs from <code>git diff</code>, <code>ls -l</code>, and <code>npm install</code> before sending them to the model — collapsing unchanged hunks, dropping lockfile diffs, and stripping progress bars. Risk assessment for terminal commands (<code>chat.tools.riskAssessment.enabled</code>, Experimental) adds an AI-generated risk badge to every command confirmation: Safe (green), Caution (orange), or Review carefully (red) for destructive operations like force-push or file deletion outside the workspace.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Enable both settings to dramatically cut token waste on noisy commands and to give your team a clear visual signal before any irreversible operation runs.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-orange">Preview</span>
+            <span class="tag tag-yellow">Experimental</span>
+            <span class="tag tag-blue">Agent Safety</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_120" target="_blank">code.visualstudio.com</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#3</span>
+          <h3><a href="https://code.visualstudio.com/updates/v1_120" target="_blank">BYOK Improvements: Token Usage Visible, Thinking Effort Configurable per Model</a></h3>
+        </div>
+        <p class="description">VS Code 1.120 fixes two long-standing BYOK (Bring Your Own Key) gaps. The Chat view now shows accurate token usage and percent-full for BYOK models — previously always displayed as 0%. You can also configure thinking effort directly from the model picker for BYOK reasoning models, applied on every request. Supported across OpenAI, xAI (Grok), OpenRouter, and custom Azure OpenAI deployments. The model picker itself is also reorganized by provider, with a search-by-name field and recent models showing provider labels in grey.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> If you are using BYOK models for cost control, you can now actually see how much token budget you are consuming and tune reasoning depth per task directly in the UI.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-green">BYOK</span>
+            <span class="tag tag-blue">Reasoning Models</span>
+            <span class="tag tag-blue">VS Code 1.120</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_120" target="_blank">code.visualstudio.com</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#4</span>
+          <h3><a href="https://code.visualstudio.com/updates/v1_120" target="_blank">Plan Mode Inline Control for Claude Agent and Copilot CLI in VS Code 1.120</a></h3>
+        </div>
+        <p class="description">When using plan mode with the Claude agent or the Copilot CLI, VS Code 1.120 replaces the separate editor-tab approach with an inline plan control (<code>chat.planWidget.inlineEditor.enabled</code>). You can now edit the plan directly inside the control, see feedback added so far, and get clearer visual cues that you are in feedback mode rather than execution mode. The old separate editor tab behavior remains available as a fallback via the setting.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Plan mode is now a first-class inline experience — faster to iterate and harder to accidentally skip past during complex agentic tasks.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">Plan Mode</span>
+            <span class="tag tag-blue">Claude Agent</span>
+            <span class="tag tag-green">Copilot CLI</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_120" target="_blank">code.visualstudio.com</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#5</span>
+          <h3><a href="https://code.visualstudio.com/updates/v1_120" target="_blank">Copilot CLI Plugins Auto-Discovered by VS Code — No Separate Install Required</a></h3>
+        </div>
+        <p class="description">Agent plugins installed via the GitHub Copilot CLI using <code>copilot plugin install</code> are now automatically detected by VS Code 1.120. Previously the same plugin had to be installed separately in VS Code or its path manually added to <code>chat.plugins.paths</code>. The change covers both surfaces with a single installation command, keeping plugin state consistent across terminal and editor.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> One <code>copilot plugin install</code> command now covers both CLI and VS Code — maintain one plugin registry instead of two.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-green">Copilot CLI</span>
+            <span class="tag tag-blue">VS Code 1.120</span>
+            <span class="tag tag-orange">DX Improvement</span>
+          </div>
+          <a class="source-link" href="https://code.visualstudio.com/updates/v1_120" target="_blank">code.visualstudio.com</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: GitHub.com Copilot -->
+  <section>
+    <div class="section-header">
+      <h2>GitHub.com Copilot</h2>
+      <span class="count-badge">5 updates</span>
+    </div>
+    <div class="card-grid">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#1</span>
+          <h3><a href="https://github.blog/changelog/2026-05-14-github-copilot-app-is-now-available-in-technical-preview/" target="_blank">GitHub Copilot App — Standalone Desktop Agentic Experience in Technical Preview</a></h3>
+        </div>
+        <p class="description">The GitHub Copilot App (May 14) is a new GitHub-native desktop product separate from VS Code. Sessions start from issues, pull requests, prompts, or previous sessions. Each session has its own branch, file tree, conversation, and task state — fully isolated. Work in parallel across repositories, pause and resume at any point, automate repeatable workflows like triage and dependency updates. Validate with an integrated terminal and browser. Ship via pull request with Agent Merge, which addresses review comments and fixes failing checks until merge conditions are met. Pro and Pro+ users can sign up for early access; Business and Enterprise subscribers roll out through the week.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> The Copilot App is GitHub's answer to Claude Code's standalone experience — start from your existing GitHub backlog, not a blank editor. Use <code>Ctrl+K</code> / <code>Cmd+K</code> to search and jump between sessions once multiple tasks are in flight.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">Technical Preview</span>
+            <span class="tag tag-green">Agentic</span>
+            <span class="tag tag-orange">New Product</span>
+          </div>
+          <a class="source-link" href="https://github.blog/changelog/2026-05-14-github-copilot-app-is-now-available-in-technical-preview/" target="_blank">github.blog</a>
+        </div>
+        <button class="read-more-btn" onclick="toggleRM(this)">+ How to Get Started</button>
+        <div class="read-more-content">
+          <ol>
+            <li>For Pro/Pro+: Sign up for early access from the GitHub Copilot app repository page on GitHub.</li>
+            <li>For Business/Enterprise: Your admin must enable previews and the Copilot CLI policy in organization settings.</li>
+            <li>Once installed, start a session from any issue or pull request in your inbox.</li>
+            <li>Use worktree isolation for changes that should not affect your current branch until review.</li>
+            <li>Use <code>Ctrl+K</code> / <code>Cmd+K</code> to open the command palette for session search and navigation.</li>
+            <li>When ready to ship, open the pull request from inside the session — Agent Merge handles review iterations automatically.</li>
+          </ol>
+          <div class="example">Practical use: Open your issue backlog in the Copilot App inbox, prompt "triage open PRs and issues from a maintainer perspective" to kick off the repo status agent, then spin up sub-agents for each actionable item in parallel.</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#2</span>
+          <h3><a href="https://github.blog/changelog/2026-05-13-introducing-copilot-cli-agent-and-unified-sessions-view-in-github-copilot-for-jetbrains-ides/" target="_blank">Copilot CLI Agent Comes to JetBrains IDEs — Unified Sessions View, Global .agent.md</a></h3>
+        </div>
+        <p class="description">JetBrains IDE users get Copilot CLI agent integration (public preview, May 13). Select "Copilot CLI" from the agent picker in chat, choose worktree or workspace isolation, and delegate long-running terminal tasks without leaving IntelliJ. A unified sessions view tracks all agent sessions with title, elapsed time, status, and agent type in one panel. The Ask question tool lets agents pause and request clarifying information from you mid-task. Global <code>.agent.md</code> support under <code>~/.copilot/agents</code> makes custom agents available across all workspaces.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> JetBrains users now have feature parity with VS Code for CLI-backed agentic tasks. Worktree isolation is the safer default for production codebases.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">JetBrains</span>
+            <span class="tag tag-green">Copilot CLI</span>
+            <span class="tag tag-orange">Public Preview</span>
+          </div>
+          <a class="source-link" href="https://github.blog/changelog/2026-05-13-introducing-copilot-cli-agent-and-unified-sessions-view-in-github-copilot-for-jetbrains-ides/" target="_blank">github.blog</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card alert-card">
+        <div class="card-top">
+          <span class="rank-badge">#3</span>
+          <h3><a href="https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/" target="_blank">ALERT: Individual Plan Sign-Ups Paused — Usage Limits Tightened, Opus Removed from Pro</a></h3>
+        </div>
+        <p class="description">GitHub paused new sign-ups for Pro, Pro+, and Student plans (effective May 14). Existing users face tightened token-based usage limits: both session limits and weekly (7-day) limits now apply. Opus models are removed from Pro; only Pro+ retains Opus 4.7, and Opus 4.5/4.6 are being removed from Pro+ as well. VS Code and Copilot CLI now display live usage warnings when approaching limits. Refunds are available for cancellations before May 20 — monthly plans get a full refund, annual plans get pro-rated.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> If you are on Pro and hitting limits, the refund window is open until May 20. For existing users: use plan mode and smaller-multiplier models for routine tasks to conserve weekly token budget.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-red">Alert</span>
+            <span class="tag tag-red">Deadline: May 20</span>
+            <span class="tag tag-orange">Pricing Change</span>
+          </div>
+          <a class="source-link" href="https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/" target="_blank">github.blog</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#4</span>
+          <h3><a href="https://github.blog/changelog/2026-05-01-upcoming-deprecation-of-gpt-5-2-and-gpt-5-2-codex/" target="_blank">GPT-5.2 and GPT-5.2-Codex Deprecated June 1 — Migrate to GPT-5.5 and GPT-5.3-Codex</a></h3>
+        </div>
+        <p class="description">Both GPT-5.2 and GPT-5.2-Codex will be deprecated across all Copilot experiences on June 1, 2026 — including Copilot Chat, inline edits, ask and agent modes, and code completions. The only exception is GPT-5.2-Codex in Copilot Code Review, which continues past that date. Recommended alternatives: GPT-5.5 for chat and inline tasks; GPT-5.3-Codex for completions. Enterprise admins must enable access to alternative models through model policies in Copilot settings before June 1.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Enterprise admins: check your model policies now and enable GPT-5.5 and GPT-5.3-Codex before June 1 to avoid workflow disruption. No action is needed to remove the deprecated models once the date passes.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-red">Deprecation</span>
+            <span class="tag tag-red">Deadline: June 1</span>
+            <span class="tag tag-orange">Enterprise Action</span>
+          </div>
+          <a class="source-link" href="https://github.blog/changelog/2026-05-01-upcoming-deprecation-of-gpt-5-2-and-gpt-5-2-codex/" target="_blank">github.blog</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#5</span>
+          <h3><a href="https://www.reddit.com/r/GithubCopilot/comments/1t6z2d2/github_copilot_for_jetbrains_may_updates/" target="_blank">JetBrains v1.9 Release: BYOK Support, Agent Debug Panel, and CLI Roadmap</a></h3>
+        </div>
+        <p class="description">The official JetBrains team Reddit post (May 8) details the v1.9 release and the upcoming roadmap: usage-based billing support improvements, an agent debug panel, improved customization file experience, Bring Your Own Key (BYOK) support for Business and Enterprise, and further Copilot CLI integration. The plan agent is no longer auto-invoked in sub-agent workflows but remains accessible from the mode picker. Edit mode support was fully removed in this release.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> BYOK for Business and Enterprise in JetBrains is on the near-term roadmap — if your team runs IntelliJ and is waiting on BYOK, this is the release cycle to watch.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">JetBrains</span>
+            <span class="tag tag-green">Roadmap</span>
+            <span class="tag tag-yellow">BYOK Coming</span>
+          </div>
+          <a class="source-link" href="https://www.reddit.com/r/GithubCopilot/comments/1t6z2d2/github_copilot_for_jetbrains_may_updates/" target="_blank">reddit.com/r/GithubCopilot</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: Microsoft Copilot for Enterprise -->
+  <section>
+    <div class="section-header">
+      <h2>Microsoft Copilot for Enterprise</h2>
+      <span class="count-badge">3 updates</span>
+    </div>
+    <div class="card-grid">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#1</span>
+          <h3><a href="https://learn.microsoft.com/en-us/power-platform/release-plan/2026wave1/microsoft-copilot-studio/planned-features" target="_blank">Copilot Studio May 2026: MCP-Compliant Tools in Agent Workflows + SharePoint Lists as Knowledge Source</a></h3>
+        </div>
+        <p class="description">Microsoft Copilot Studio's Wave 1 2026 release (May 2026) ships two significant enterprise features. MCP-compliant tools can now be used inside agent workflows — connecting your Copilot Studio agents to any Model Context Protocol-compatible data source or tool without custom connectors. SharePoint lists are now supported as a native knowledge source for agents, enabling direct retrieval-augmented generation from list data. Code interpreter on SharePoint sources in agent conversations also enters general availability this month.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> If your organization runs SharePoint, native list-based knowledge retrieval means no ETL pipeline to a vector store — wire up SharePoint lists directly as agent knowledge sources in Copilot Studio.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">Copilot Studio</span>
+            <span class="tag tag-green">GA</span>
+            <span class="tag tag-orange">MCP</span>
+          </div>
+          <a class="source-link" href="https://learn.microsoft.com/en-us/power-platform/release-plan/2026wave1/microsoft-copilot-studio/planned-features" target="_blank">learn.microsoft.com</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#2</span>
+          <h3><a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/release-notes" target="_blank">Microsoft 365 Copilot: Edge Contextual Nudges and Viva Glint AI Survey Insights GA</a></h3>
+        </div>
+        <p class="description">Two M365 Copilot features reached general availability on May 5. Edge for Business now surfaces contextual nudges that offer quick page summaries directly in Copilot Chat, making it easier to bring current browser context into a conversation without copying text. Copilot Highlights in Viva Glint generates AI-powered summaries of employee survey results — surfacing notable score changes, benchmark comparisons, and response confidence — with multilingual support now included at GA. The updated Copilot Dashboard Readiness page also ships personalized configuration insights with tailored admin recommendations.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> The Viva Glint AI summaries replace manual survey analysis for HR teams — multilingual GA means global organizations can roll this out without building custom summarization pipelines.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">M365 Copilot</span>
+            <span class="tag tag-green">GA</span>
+            <span class="tag tag-yellow">Viva Glint</span>
+          </div>
+          <a class="source-link" href="https://learn.microsoft.com/en-us/microsoft-365/copilot/release-notes" target="_blank">learn.microsoft.com</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#3</span>
+          <h3><a href="https://learn.microsoft.com/en-us/power-platform/release-plan/2026wave1/microsoft-copilot-studio/planned-features" target="_blank">Copilot Studio: Computer Use Automation and Evaluate Agent Sentiment in May GA Wave</a></h3>
+        </div>
+        <p class="description">Copilot Studio's May GA wave includes two more capabilities: computer use automation (automate web and desktop apps without API access — interact with any application's UI programmatically) and analyze user sentiment from agent conversations (surface how users are feeling about agent interactions in aggregate analytics). Evaluation results now appear in real time rather than requiring a batch processing delay. The full multi-turn conversation evaluation feature is targeted for June GA.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Computer use automation makes Copilot Studio agents viable for legacy enterprise apps that have no API — a significant unlock for organizations with older line-of-business software.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-blue">Copilot Studio</span>
+            <span class="tag tag-green">GA</span>
+            <span class="tag tag-orange">Computer Use</span>
+          </div>
+          <a class="source-link" href="https://learn.microsoft.com/en-us/power-platform/release-plan/2026wave1/microsoft-copilot-studio/planned-features" target="_blank">learn.microsoft.com</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: Community Picks -->
+  <section>
+    <div class="section-header">
+      <h2>Community Picks</h2>
+      <span class="count-badge">3 updates</span>
+    </div>
+    <div class="card-grid">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#1</span>
+          <h3><a href="https://devopsjournal.io/blog/2026/05/14/github-copilot-app" target="_blank">DevOps Journal: Copilot App Walkthrough — Sub-Agents in Parallel, Cmd+K Session Nav, PR Triage Pattern</a></h3>
+        </div>
+        <p class="description">Rob Bos at DevOps Journal published a hands-on walkthrough of the Copilot App technical preview on launch day. Key tips surfaced: start a natural language prompt like "triage open PRs and issues from a maintainer perspective" to kick off the repo status agent, which pulls in Dependabot vulnerability alerts alongside regular issues. From there, spin up sub-agents for each issue in parallel with separate work trees and separate PRs running concurrently. <code>Ctrl+K</code> / <code>Cmd+K</code> is described as easy to miss but critical once multiple sessions are in flight — it opens a command palette to search all recent sessions and see their current status.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> The parallel sub-agent pattern (one agent per issue, each in its own work tree) is the killer workflow of the Copilot App — it turns a backlog of 10 issues into 10 concurrent draft PRs.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-green">Workflow Tip</span>
+            <span class="tag tag-blue">Copilot App</span>
+            <span class="tag tag-orange">PR Triage</span>
+          </div>
+          <a class="source-link" href="https://devopsjournal.io/blog/2026/05/14/github-copilot-app" target="_blank">devopsjournal.io</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#2</span>
+          <h3><a href="https://www.reddit.com/r/GithubCopilot/comments/1tekbl3/what_are_you_using_for_vibe_coding_in_2026_on_a/" target="_blank">Reddit Budget Coding Thread: Use Small-Multiplier Models for Routine Work, Reserve Premium for Edge Cases</a></h3>
+        </div>
+        <p class="description">A heavily discussed thread this week on r/GithubCopilot asked what tools developers are using in 2026 on a ~$10/month budget. The most upvoted practical insight: treat your token budget like a cache — use cost-effective auto-selected models for the bulk of routine feature work, and reserve high-multiplier premium models for specific hard problems. Several commenters noted that continuously modifying files disrupts context caching; instead, ask targeted questions about the project to give the AI direction before issuing edit instructions. Copilot free-tier models were highlighted as underutilized for simpler completions.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Model selection strategy matters more than which tool you use. Map task complexity to multiplier tier: routine completions on Auto, architecture and debugging on premium. This extends your weekly usage limit significantly.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-yellow">Community</span>
+            <span class="tag tag-green">Cost Tip</span>
+            <span class="tag tag-blue">Model Strategy</span>
+          </div>
+          <a class="source-link" href="https://www.reddit.com/r/GithubCopilot/comments/1tekbl3/what_are_you_using_for_vibe_coding_in_2026_on_a/" target="_blank">reddit.com/r/GithubCopilot</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="rank-badge">#3</span>
+          <h3><a href="https://www.reddit.com/r/GithubCopilot/comments/1td3neh/github_copilot_app_is_now_available_in_technical/" target="_blank">Community Reaction to Copilot App: Strategy Questions on Fragmentation vs. Intentional Positioning</a></h3>
+        </div>
+        <p class="description">The top community reaction to the Copilot App launch on r/GithubCopilot centered on whether GitHub is fragmenting its agent surface area — VS Code Agents Window, Copilot App, Copilot CLI, and Codex all launching within weeks. The most substantive reply (9 upvotes) argued these are distinct surfaces for distinct workflows: VS Code for in-editor iteration, CLI for terminal-native automation, Copilot App for GitHub-context-first tasks starting from issues and PRs. The most actionable note from the thread: non-VS Code developers (Visual Studio, IntelliJ) now have a viable standalone agentic interface for the first time.</p>
+        <div class="takeaway"><strong>Key Takeaway:</strong> Choose the surface by where your context lives: start from GitHub issues/PRs with the Copilot App, stay in your editor for in-file iteration, use CLI for scripted automation pipelines. They are not interchangeable — they are complementary entry points.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-yellow">Community</span>
+            <span class="tag tag-orange">Strategy</span>
+            <span class="tag tag-blue">Copilot App</span>
+          </div>
+          <a class="source-link" href="https://www.reddit.com/r/GithubCopilot/comments/1td3neh/github_copilot_app_is_now_available_in_technical/" target="_blank">reddit.com/r/GithubCopilot</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHANI PICK -->
+  <div class="phani-pick">
+    <div class="phani-label">Phani's Pick of the Week</div>
+    <h3>Try the Copilot App's Parallel Sub-Agent Pattern on Your Issue Backlog This Weekend</h3>
+    <p>The GitHub Copilot App's most powerful workflow is one that is invisible in the marketing: spin up one sub-agent per open issue, each in its own isolated Git worktree, each producing a separate draft PR — all running concurrently while you review. If you have Business or Enterprise access, your admin just needs to enable previews and Copilot CLI policy this week to get you in. Start small: pick 3–5 clearly scoped issues (not architecture decisions), write one-sentence prompts for each, and let the parallel sessions run. The session-level token budget from the new weekly limits makes this a great time to test the approach before limits tighten further. Use <code>Ctrl+K</code> / <code>Cmd+K</code> inside the app to jump between sessions and check progress without losing context. This is the most significant change to GitHub-native development workflows in years.</p>
+  </div>
+
+</div>
+
+<div class="site-footer">
+  <p>Sources: <a href="https://github.blog/changelog/" target="_blank">GitHub Changelog</a> &middot; <a href="https://code.visualstudio.com/updates" target="_blank">VS Code Release Notes</a> &middot; <a href="https://github.blog/" target="_blank">GitHub Blog</a> &middot; <a href="https://www.reddit.com/r/GithubCopilot/" target="_blank">Reddit r/GithubCopilot</a> &middot; <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/release-notes" target="_blank">M365 Copilot Release Notes</a></p>
+  <p style="margin-top:6px;">Auto-generated every Saturday &middot; <a href="https://phanikumar-rudra.github.io/ai-news/" target="_blank">phanikumar-rudra.github.io/ai-news</a></p>
+</div>
+
+<script>
+  function toggleRM(btn) {
+    var content = btn.nextElementSibling;
+    var isOpen = content.classList.contains('open');
+    content.classList.toggle('open');
+    if (!isOpen) {
+      if (!btn.getAttribute('data-label')) btn.setAttribute('data-label', btn.textContent.replace('+ ',''));
+      btn.textContent = '- Collapse';
+    } else {
+      btn.textContent = '+ ' + (btn.getAttribute('data-label') || 'Step-by-Step Guide');
+    }
+  }
+</script>
+
+</body>
+</html>
